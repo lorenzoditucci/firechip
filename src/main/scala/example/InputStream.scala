@@ -1,51 +1,45 @@
 package example
-
 import chisel3._
 import chisel3.util._
-import freechips.rocketchip.subsystem.BaseSubsystem
-import freechips.rocketchip.config.{Field, Parameters}
-import freechips.rocketchip.devices.tilelink.TLROM
+import freechips.rocketchip.config.Parameters
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.regmapper.{HasRegMap, RegField}
-import freechips.rocketchip.tilelink._
-import freechips.rocketchip.unittest.{UnitTest, UnitTestIO}
-import freechips.rocketchip.util._
-import testchipip.{StreamIO, StreamChannel, TLHelper}
 import freechips.rocketchip.interrupts.{IntSourceNode, IntSourcePortSimple}
+import freechips.rocketchip.regmapper.RegField
+import freechips.rocketchip.subsystem.BaseSubsystem
+import freechips.rocketchip.tilelink.{TLClientNode, TLClientParameters, TLClientPortParameters, TLRegisterNode}
 
-import scala.math.max
+class InputStream(
+    address: BigInt,
+    val beatBytes: Int = 8,
+    val maxInflight: Int = 4)
+    (implicit p: Parameters) extends LazyModule {
 
-class InputStream (
-                    address: BigInt,
-                  val beatBytes: Int = 8,
-                    val maxInflight: Int = 4
-                  ) (implicit p: Parameters) extends LazyModule{
   val device = new SimpleDevice("input-stream", Seq("example,input-stream"))
   val regnode = TLRegisterNode(
     address = Seq(AddressSet(address, 0x3f)),
     device = device,
-    beatBytes = beatBytes
-  )
+    beatBytes = beatBytes)
   val dmanode = TLClientNode(Seq(TLClientPortParameters(
     Seq(TLClientParameters(
       name = "input-stream",
-      sourceId = IdRange(0,maxInflight)
-    ))
-  )))
+      sourceId = IdRange(0, maxInflight))))))
 
   val intnode = IntSourceNode(IntSourcePortSimple(resources = device.int))
+
 
   lazy val module = new InputStreamModuleImp(this)
 }
 
-class InputStreamModuleImp(outer: InputStream) extends LazyModuleImp(outer){
+class InputStreamModuleImp(outer: InputStream) extends LazyModuleImp(outer) {
   val (tl, edge) = outer.dmanode.out(0)
-  val addrBits = 64
-  val w = 64
-  val beatBytes = (w/8)
-  val io = IO(new Bundle{
+  val addrBits = edge.bundle.addressBits
+  val w = edge.bundle.dataBits
+  val beatBytes = (w / 8)
+
+  val io = IO(new Bundle {
     val in = Flipped(Decoupled(UInt(w.W)))
   })
+
   val addr = Reg(UInt(addrBits.W))
   val len = Reg(UInt(addrBits.W))
   val running = RegInit(false.B)
@@ -72,8 +66,7 @@ class InputStreamModuleImp(outer: InputStream) extends LazyModuleImp(outer){
   tl.d.ready := running && xactBusy.orR
 
   xactBusy := (xactBusy |
-    Mux(tl.a.fire(), xactOnehot, 0.U(nXacts.W))) &
-    ~Mux(tl.d.fire(), UIntToOH(tl.d.bits.source), 0.U)
+    Mux(tl.a.fire(), xactOnehot, 0.U(nXacts.W))) & (~Mux(tl.d.fire(), UIntToOH(tl.d.bits.source), 0.U)).asUInt()
 
   when (state === s_idle && running) {
     assert(addr(log2Ceil(beatBytes)-1,0) === 0.U,
@@ -102,6 +95,7 @@ class InputStreamModuleImp(outer: InputStream) extends LazyModuleImp(outer){
     0x18 -> Seq(RegField(1, complete)))
 }
 
+
 trait HasPeripheryInputStream { this: BaseSubsystem =>
   private val portName = "input-stream"
   val streamWidth = pbus.beatBytes * 8
@@ -112,18 +106,18 @@ trait HasPeripheryInputStream { this: BaseSubsystem =>
 }
 
 class FixedInputStream(data: Seq[BigInt], w: Int) extends Module {
-  val io = IO(new Bundle {
-    val out = Decoupled(UInt(w.W))
-  })
+    val io = IO(new Bundle {
+        val out = Decoupled(UInt(w.W))
+    })
 
-  val dataVec = VecInit(data.map(_.U(w.W)))
-  val (dataIdx, dataDone) = Counter(io.out.fire(), data.length)
-  val sending = RegInit(true.B)
+    val dataVec = VecInit(data.map(_.U(w.W)))
+    val (dataIdx, dataDone) = Counter(io.out.fire(), data.length)
+    val sending = RegInit(true.B)
 
-  io.out.valid := sending
-  io.out.bits := dataVec(dataIdx)
+    io.out.valid := sending
+    io.out.bits := dataVec(dataIdx)
 
-  when (dataDone) { sending := false.B }
+    when (dataDone) { sending := false.B }
 }
 
 trait HasPeripheryInputStreamModuleImp extends LazyModuleImp {
