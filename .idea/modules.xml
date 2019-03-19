@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/boom.iml" filepath="$PROJECT_DIR$/.idea/modules/boom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/boom-build.iml" filepath="$PROJECT_DIR$/.idea/modules/boom-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chisel.iml" filepath="$PROJECT_DIR$/.idea/modules/chisel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chisel-build.iml" filepath="$PROJECT_DIR$/.idea/modules/chisel-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chiselFrontend.iml" filepath="$PROJECT_DIR$/.idea/modules/chiselFrontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chiselFrontend-build.iml" filepath="$PROJECT_DIR$/.idea/modules/chiselFrontend-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coreMacros.iml" filepath="$PROJECT_DIR$/.idea/modules/coreMacros.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coreMacros-build.iml" filepath="$PROJECT_DIR$/.idea/modules/coreMacros-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example.iml" filepath="$PROJECT_DIR$/.idea/modules/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example-build.iml" filepath="$PROJECT_DIR$/.idea/modules/example-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hardfloat.iml" filepath="$PROJECT_DIR$/.idea/modules/hardfloat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hardfloat-build.iml" filepath="$PROJECT_DIR$/.idea/modules/hardfloat-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/icenet.iml" filepath="$PROJECT_DIR$/.idea/modules/icenet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/icenet-build.iml" filepath="$PROJECT_DIR$/.idea/modules/icenet-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/macros.iml" filepath="$PROJECT_DIR$/.idea/modules/macros.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/macros-build.iml" filepath="$PROJECT_DIR$/.idea/modules/macros-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rocketchip.iml" filepath="$PROJECT_DIR$/.idea/modules/rocketchip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rocketchip-build.iml" filepath="$PROJECT_DIR$/.idea/modules/rocketchip-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sifive_blocks.iml" filepath="$PROJECT_DIR$/.idea/modules/sifive_blocks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sifive_blocks-build.iml" filepath="$PROJECT_DIR$/.idea/modules/sifive_blocks-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testchipip.iml" filepath="$PROJECT_DIR$/.idea/modules/testchipip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/testchipip-build.iml" filepath="$PROJECT_DIR$/.idea/modules/testchipip-build.iml" />
+    </modules>
+  </component>
+</project>

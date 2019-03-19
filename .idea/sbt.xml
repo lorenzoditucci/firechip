@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/boom" />
+            <option value="$PROJECT_DIR$/boom/project" />
+            <option value="$PROJECT_DIR$/icenet" />
+            <option value="$PROJECT_DIR$/icenet/project" />
+            <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/rocket-chip" />
+            <option value="$PROJECT_DIR$/rocket-chip/chisel3" />
+            <option value="$PROJECT_DIR$/rocket-chip/chisel3/chiselFrontend" />
+            <option value="$PROJECT_DIR$/rocket-chip/chisel3/chiselFrontend/project" />
+            <option value="$PROJECT_DIR$/rocket-chip/chisel3/coreMacros" />
+            <option value="$PROJECT_DIR$/rocket-chip/chisel3/coreMacros/project" />
+            <option value="$PROJECT_DIR$/rocket-chip/chisel3/project" />
+            <option value="$PROJECT_DIR$/rocket-chip/hardfloat" />
+            <option value="$PROJECT_DIR$/rocket-chip/hardfloat/project" />
+            <option value="$PROJECT_DIR$/rocket-chip/macros" />
+            <option value="$PROJECT_DIR$/rocket-chip/macros/project" />
+            <option value="$PROJECT_DIR$/rocket-chip/project" />
+            <option value="$PROJECT_DIR$/sifive-blocks" />
+            <option value="$PROJECT_DIR$/sifive-blocks/project" />
+            <option value="$PROJECT_DIR$/testchipip" />
+            <option value="$PROJECT_DIR$/testchipip/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="1.0.3" />
+      </SbtProjectSettings>
+    </option>
+  </component>
+</project>

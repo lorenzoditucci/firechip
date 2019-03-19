@@ -1,5 +1,6 @@
 base_dir=$(abspath ..)
 sim_dir=$(abspath .)
+#example_dir=$(abspath ../src/main/resources)
 
 PROJECT ?= example
 MODEL ?= TestHarness
@@ -28,11 +29,15 @@ long_name = $(PROJECT).$(MODEL).$(CONFIG)
 sim_vsrcs = \
 	$(build_dir)/$(long_name).v \
 	$(rocketchip_vsrc_dir)/AsyncResetReg.v \
-	$(icenet_vsrcs) $(testchip_vsrcs)
+	$(icenet_vsrcs) $(testchip_vsrcs) \
+	/home/lorenzo/Documents/university/MIT/firechip/src/main/resources/vsrc/SimInputStream.v
+#	$(example_dir)/vsrc/SimInputStream.v
 
 sim_csrcs = \
 	$(sim_dir)/csrc/verilator-harness.cc \
-	$(icenet_csrcs) $(testchip_csrcs)
+	$(icenet_csrcs) $(testchip_csrcs) \
+	/home/lorenzo/Documents/university/MIT/firechip/src/main/resources/csrc/SimInputStream.cc
+#	$(example_dir)/csrc/SimInputStream.cc
 
 model_dir = $(build_dir)/$(long_name)
 model_dir_debug = $(build_dir)/$(long_name).debug

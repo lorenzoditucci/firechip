@@ -27,8 +27,11 @@ verilator/verilator-$(VERILATOR_VERSION).tar.gz:
 rocketchip_vsrc_dir = $(ROCKETCHIP_DIR)/src/main/resources/vsrc
 rocketchip_csrc_dir = $(ROCKETCHIP_DIR)/src/main/resources/csrc
 
+example_vsrc_dir = /home/lorenzo/Documents/university/MIT/firechip/src/main/resources/vsrc
+example_csrc_dir = /home/lorenzo/Documents/university/MIT/firechip/src/main/resources/csrc
+
 # Run Verilator to produce a fast binary to emulate this circuit.
-VERILATOR := $(INSTALLED_VERILATOR) --cc --exe
+VERILATOR := $(INSTALLED_VERILATOR) --cc --exe 
 VERILATOR_FLAGS := --top-module $(MODEL) \
   +define+PRINTF_COND=\$$c\(\"verbose\",\"\&\&\"\,\"done_reset\"\) \
   +define+STOP_COND=\$$c\(\"done_reset\"\) --assert \
@@ -37,4 +40,6 @@ VERILATOR_FLAGS := --top-module $(MODEL) \
   -I$(base_dir)/icenet/vsrc \
   -I$(base_dir)/testchipip/vsrc \
   -I$(rocketchip_vsrc_dir) \
+  -I$(example_csrc_dir) \
+  -I$(example_vsrc_dir) \
   -O3 -CFLAGS "$(CXXFLAGS) -DVERILATOR -include $(rocketchip_csrc_dir)/verilator.h"

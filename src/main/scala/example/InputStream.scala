@@ -1,7 +1,7 @@
 package example
 import chisel3._
 import chisel3.util._
-import freechips.rocketchip.config.Parameters
+import freechips.rocketchip.config.{Config, Parameters}
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.interrupts.{IntSourceNode, IntSourcePortSimple}
 import freechips.rocketchip.regmapper.RegField
@@ -129,5 +129,12 @@ trait HasPeripheryInputStreamModuleImp extends LazyModuleImp {
   def connectFixedInput(data: Seq[BigInt]) {
     val fixed = Module(new FixedInputStream(data, outer.streamWidth))
     stream_in <> fixed.io.out
+  }
+
+  def connectSimInput(clock: Clock, reset: Bool): Unit ={
+    val sim = Module(new SimInputStream(outer.streamWidth))
+    sim.io.clock := clock
+    sim.io.reset := reset
+    stream_in <> sim.io.out
   }
 }

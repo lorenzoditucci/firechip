@@ -1,4 +1,5 @@
 #include "rocc.h"
+#include <stdio.h>
 
 static inline void accum_write(int idx, unsigned long data)
 {
@@ -23,6 +24,17 @@ static inline void accum_add(int idx, unsigned long addend)
 	ROCC_INSTRUCTION_SS(0, addend, idx, 3);
 }
 
+static inline void accum_tuccio(int idx, unsigned long addend)
+{
+	ROCC_INSTRUCTION_SS(0, addend, idx, 4);
+}
+
+static inline void fixed_operation(void *ptr, int idx)
+{
+	asm volatile ("fence");
+	ROCC_INSTRUCTION_SS(1, (uintptr_t) ptr, idx, 0);
+}
+
 unsigned long data = 0x3421L;
 
 int main(void)
@@ -42,6 +54,22 @@ int main(void)
 
 	if (result != 4)
 		return 2;
+
+	accum_tuccio(0, 4);
+	result = accum_read(0);
+
+	if (result != 104){
+		printf("(Tuccio) Error, result is %d \n", result);
+		return 3;
+	}
+
+	/*Stop here if we have only one module*/
+
+	printf("PRE-DATA = %lu \n", data);
+	fixed_operation(&data, 110);
+	printf("POST-DATA = %lu \n", data);
+
+	printf("Success\n");
 
 	return 0;
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/boom" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/icenet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/project-template" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/project-template/barstools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/project-template/rocket-chip" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/project-template/testchipip" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rocket-chip" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rocket-chip/chisel3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rocket-chip/firrtl" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rocket-chip/hardfloat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/rocket-chip/torture" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sifive-blocks" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/testchipip" vcs="Git" />
+  </component>
+</project>

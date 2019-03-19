@@ -1,11 +1,11 @@
 package example
 
 import chisel3._
-import freechips.rocketchip.config.{Parameters, Config}
-import freechips.rocketchip.subsystem.{WithRoccExample, WithNMemoryChannels, WithNBigCores, WithRV32}
+import freechips.rocketchip.config.{Config, Parameters}
+import freechips.rocketchip.subsystem.{WithNBigCores, WithNMemoryChannels, WithRV32, WithRoccExample}
 import freechips.rocketchip.devices.tilelink.BootROMParams
 import freechips.rocketchip.diplomacy.{LazyModule, ValName}
-import freechips.rocketchip.tile.XLen
+import freechips.rocketchip.tile._
 import testchipip._
 import icenet._
 
@@ -116,3 +116,41 @@ class WithFixedInputStream extends Config((site, here, up) => {
 
 class FixedInputStreamConfig extends Config(
   new WithFixedInputStream ++ new BaseExampleConfig)
+
+class WithSimInputStream extends Config((site, here, up) => {
+  case BuildTop => (clock: Clock, reset: Bool, p: Parameters) => {
+    val top = Module(LazyModule(new ExampleTopWithInputStream()(p)).module)
+    top.connectSimInput(clock, reset)
+    top
+  }
+})
+
+class SimInputStreamConfig extends Config(
+  new WithSimInputStream ++new BaseExampleConfig
+)
+
+class WithCustomAccelerator extends Config((site, here, up) => {
+  case BuildRoCC => Seq((p: Parameters) => LazyModule (
+    new AccumulatorExample2(OpcodeSet.custom0 | OpcodeSet.custom1)(p))) //dirotta le custom0 e custom 1 a questo core
+})
+
+class WithCustomAccelerator_c0 extends Config((site, here, up) => {
+  case BuildRoCC => Seq((p: Parameters) => LazyModule (
+    new AccumulatorExample2(OpcodeSet.custom0)(p))) //dirotta le custom0 a questo core
+})
+
+class AccumulatorExampleConfig extends Config(
+  new WithCustomAccelerator ++ new DefaultExampleConfig)
+
+
+class WithCustomAcceleratorDummy extends Config((site, here, up) => {
+  case BuildRoCC => Seq((p: Parameters) => LazyModule(
+    new DummyExample(OpcodeSet.custom0 | OpcodeSet.custom1)(p)))
+})
+
+class DummyExampleConfig extends Config(
+  new WithCustomAcceleratorDummy ++ new DefaultExampleConfig)
+
+class AccumulatorAndDummyConfig extends Config(
+  new WithCustomAccelerator_c0 ++ new DummyExampleConfig
+)

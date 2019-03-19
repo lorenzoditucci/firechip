@@ -26,5 +26,11 @@ int main(void)
         for (int i = 0; i < N; i++)
                 printf("%016lx\n", values[i]);
 
+        int a[N] = {0};
+
+        for (int i = 0; i < N; i++){
+        	printf("%d \n ", a[i] + 110);
+        }
+
         return 0;
 }
