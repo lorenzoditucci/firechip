@@ -16,3 +16,6 @@
 [submodule "boom"]
 	path = boom
 	url = https://github.com/ucb-bar/riscv-boom.git
+[submodule "project-template"]
+	path = project-template
+	url = https://github.com/ucb-bar/project-template
