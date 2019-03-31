@@ -44,9 +44,11 @@ int main(void)
 	//accum_tuccio(0, 12);
 	printf("PRE-DATA = %d \n", data);
 	int a = 37 + 47;
+	for(int i = 0; i < 33; i++){
 	asm("fence");
 	fixed_operation(&data, 3);
 	asm("fence");
+	}
 	printf("POST-DATA = %d \n", data);
 	printf("POST-DATA = %d \n", data);
 	printf("POST-DATA = %d \n", data);

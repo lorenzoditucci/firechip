@@ -1,5 +1,7 @@
 package example
 
+import ALSA.ALSA_Top
+import DEBUG.LoadDebug
 import chisel3._
 import freechips.rocketchip.config.{Config, Parameters}
 import freechips.rocketchip.subsystem.{WithNBigCores, WithNMemoryChannels, WithRV32, WithRoccExample}
@@ -153,4 +155,22 @@ class DummyExampleConfig extends Config(
 
 class AccumulatorAndDummyConfig extends Config(
   new WithCustomAccelerator_c0 ++ new DummyExampleConfig
+)
+
+class WithCustomAcceleratorALSA extends Config((site, here, up) => {
+  case BuildRoCC => Seq((p: Parameters) => LazyModule(
+    new ALSA_Top(OpcodeSet.custom0 | OpcodeSet.custom1)(p)))
+})
+class ALSAConfig extends Config(
+  new WithCustomAcceleratorALSA ++ new DefaultExampleConfig
+)
+
+
+class WithCustomAcceleratorDebugLoad extends Config((site, here, up) => {
+  case BuildRoCC => Seq((p: Parameters) => LazyModule(
+    new LoadDebug(OpcodeSet.custom0 | OpcodeSet.custom1)(p)))
+})
+
+class DebugLoadConfig extends Config(
+  new WithCustomAcceleratorDebugLoad ++ new DefaultExampleConfig
 )

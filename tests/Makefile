@@ -3,7 +3,7 @@ OBJDUMP=riscv64-unknown-elf-objdump
 CFLAGS=-mcmodel=medany -std=gnu99 -O2 -fno-common -fno-builtin-printf -Wall
 LDFLAGS=-static -nostdlib -nostartfiles -lgcc
 
-PROGRAMS = pwm blkdev accum charcount nic-loopback pingd big-blkdev input-stream sum_test accum_custom
+PROGRAMS = pwm blkdev accum charcount nic-loopback pingd big-blkdev input-stream sum_test accum_custom alsa_0 alsa_global_regs_dispatch alsa_private_regs_test alsa_shared_regs_test alsa_compute_sw_iter_test
 
 default: $(addsuffix .riscv,$(PROGRAMS))
 
